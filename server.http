@@ -1,0 +1,19 @@
+POST http://localhost:3008/register 
+Content-Type: application/json
+
+{
+    "username":"arun1",
+    "email":"arun@gmail.com",
+    "password":"aru@1223",
+    "role":"member"
+}
+
+### 
+POST  http://localhost:3008/login 
+Content-Type: application/json 
+
+{
+    "username" :"arun1",
+    "password":"aru@1223",
+    "role" : "member"
+}
