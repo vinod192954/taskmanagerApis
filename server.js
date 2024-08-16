@@ -6,8 +6,9 @@ const jwt = require('jsonwebtoken')
 const {open} = require('sqlite')
 const sqlite3 = require('sqlite3')
 const app = express()
-app.use(express.json())
 app.use(cors())
+app.use(express.json())
+
 const dbpath = path.join(__dirname,'taskmanager.db')
 let db=null 
 
@@ -39,10 +40,10 @@ app.post("/register",async(request,response)=>{
         const createNewUserQuery = `INSERT INTO users(username,email,password,role) 
         VALUES('${username}','${email}','${hashedPassword}','${role}')` 
         const dbResponse = await db.run(createNewUserQuery)
-        response.send("User created successfully")
+        response.status(200).json({message:"User Created Successfully"})
     }
     else{
-        response.send("User already exist")
+        response.status(400).json({message:"User already exist"})
     }
 })
 
@@ -51,7 +52,7 @@ app.post("/login",async(request,response)=>{
     const selectedQuery =  `SELECT  * FROM users WHERE username = ?`
     const dbResponse = await db.get(selectedQuery,[username]) 
     if (dbResponse===undefined){
-        response.send("User doesn't exist")
+        response.status(200).json({message:"User doesn't exist"})
     }
     else{
         const isPasswordMatch = await bcrypt.compare(password,dbResponse.password)
@@ -61,7 +62,7 @@ app.post("/login",async(request,response)=>{
             response.send({jwtToken:jwtToken})
         }
         else{
-            response.send("Invalid password")
+            response.status(400).send({message:"Invalid password"})
         }
     }
 })
