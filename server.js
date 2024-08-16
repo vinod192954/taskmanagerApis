@@ -42,7 +42,7 @@ app.post("/register",async(request,response)=>{
         response.send({message:"User created successfully"})
     }
     else{
-        response.send("User already exist")
+        response.send({message:"User already exist"})
     }
 })
 
