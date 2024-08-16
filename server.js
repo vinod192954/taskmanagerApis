@@ -39,10 +39,10 @@ app.post("/register",async(request,response)=>{
         const createNewUserQuery = `INSERT INTO users(username,email,password,role) 
         VALUES('${username}','${email}','${hashedPassword}','${role}')` 
         const dbResponse = await db.run(createNewUserQuery)
-        response.send({message:"User created successfully"})
+        response.send("User created successfully")
     }
     else{
-        response.send({message:"User already exist"})
+        response.send("User already exist")
     }
 })
 
