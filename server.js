@@ -35,7 +35,7 @@ app.post("/register",async(request,response)=>{
     const {username,email,password,role} = request.body 
     const hashedPassword = await bcrypt.hash(password,10)
     const selectedQuery =  `SELECT * FROM users WHERE username = ?`
-    const dbUser = await db.get(selectedQuery)
+    const dbUser = await db.get(selectedQuery,[username])
     if (dbUser===undefined){
         const createNewUserQuery = `INSERT INTO users(username,email,password,role) 
         VALUES('${username}','${email}','${hashedPassword}','${role}')` 
