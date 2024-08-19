@@ -2,9 +2,9 @@ POST http://localhost:3008/register
 Content-Type: application/json
 
 {
-    "username":"arun1",
-    "email":"arun3@gmail.com",
-    "password":"aru@1223",
+    "username":"modi1",
+    "email":"modi2@gmail.com",
+    "password":"modi@1223",
     "role":"member"
 }
 
@@ -16,4 +16,15 @@ Content-Type: application/json
     "username" :"arun1",
     "password":"aru@1223",
     "role" : "member"
+}
+
+###
+POST http://localhost:3008/tasks 
+Content-Type: application/json 
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjMsInVzZXJuYW1lIjoiYXJ1bjEiLCJyb2xlIjoibWVtYmVyIiwiaWF0IjoxNzI0MDM3MDc4fQ.CPBHSeY96o8IQiOCDzK7BI2X4qtEEwCqOuh5gdstbhM
+
+{
+    "taskName":"assignment of app script",
+    "taskDescription":"apply frotend and backend stacks",
+    "status":"completed"
 }

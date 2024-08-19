@@ -5,6 +5,7 @@ const bcrypt = require('bcrypt')
 const jwt = require('jsonwebtoken')
 const {open} = require('sqlite')
 const sqlite3 = require('sqlite3')
+const { stat } = require('fs')
 const app = express()
 app.use(cors())
 app.use(express.json())
@@ -57,7 +58,8 @@ app.post("/login",async(request,response)=>{
     else{
         const isPasswordMatch = await bcrypt.compare(password,dbResponse.password)
         if (isPasswordMatch===true){
-            const payload = {username,role}
+            const payload = { userId: dbResponse.id, username, role }
+            console.log(payload)
             const jwtToken = jwt.sign(payload,"vinodsecretepassword")
             response.send({jwtToken:jwtToken})
         }
@@ -66,3 +68,39 @@ app.post("/login",async(request,response)=>{
         }
     }
 })
+
+const authenticationToken=(request,response,next)=>{
+    let jwtToken ;
+    const authHeader = request.headers['authorization']
+    if (authHeader!==undefined){
+        jwtToken=authHeader.split(" ")[1];
+    }
+    if (jwtToken===undefined){
+        response.status(401)
+        response.send("Invalid Token")
+    }
+    else{
+        jwt.verify(jwtToken,"vinodsecretepassword",async(error,payload)=>{
+            if (error){
+                response.status(401)
+                response.send("Invalid Token")
+            }
+            else{
+                request.users=payload
+                next()
+            }
+        })
+    }
+}
+
+app.post("/tasks",authenticationToken,async(request,response)=>{
+    const {taskName,taskDescription,status} = request.body 
+    const user_Id = request.users.userId 
+    const newTaskQuery = `INSERT INTO tasks(task_name,task_description,status,userId) 
+    VALUES (?,?,?,?)` 
+    const result = await db.run(newTaskQuery,[taskName,taskDescription,status,user_Id])
+    const taskId = result.lastID 
+    response.send({taskId:taskId})
+
+})
+
