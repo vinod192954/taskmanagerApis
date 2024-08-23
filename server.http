@@ -13,8 +13,8 @@ POST  http://localhost:3008/login
 Content-Type: application/json 
 
 {
-    "username" :"arun1",
-    "password":"aru@1223",
+    "username" :"ganga",
+    "password":"Ganga@123",
     "role" : "member"
 }
 
@@ -30,5 +30,5 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjMsInVzZ
 }
 
 ### 
-GET http://localhost:3008/taskItems
+GET http://localhost:3008/taskItems?status=yetToStart
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjMsInVzZXJuYW1lIjoiYXJ1bjEiLCJyb2xlIjoibWVtYmVyIiwiaWF0IjoxNzI0MDM3MDc4fQ.CPBHSeY96o8IQiOCDzK7BI2X4qtEEwCqOuh5gdstbhM

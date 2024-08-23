@@ -107,9 +107,10 @@ app.post("/tasks",authenticationToken,async(request,response)=>{
 
 app.get("/taskItems", authenticationToken, async (request, response) => {
     try {
+        const {status} = request.query
         const user_Id=request.users.userId
-        const getTasksList = `SELECT * FROM tasks WHERE userId = ?`; 
-        const result = await db.all(getTasksList,[user_Id]);
+        const getTasksList = `SELECT * FROM tasks WHERE userId = ? AND status = ?`; 
+        const result = await db.all(getTasksList,[user_Id,status]);
         response.send(result);
     } catch (error) {
         console.error("Error fetching tasks:", error);
