@@ -24,7 +24,11 @@ Content-Type: application/json
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjMsInVzZXJuYW1lIjoiYXJ1bjEiLCJyb2xlIjoibWVtYmVyIiwiaWF0IjoxNzI0MDM3MDc4fQ.CPBHSeY96o8IQiOCDzK7BI2X4qtEEwCqOuh5gdstbhM
 
 {
-    "taskName":"assignment of app script",
-    "taskDescription":"apply frotend and backend stacks",
-    "status":"completed"
+    "taskName":"students marks documentation",
+    "taskDescription":"each student has to separe file",
+    "status":"pending"
 }
+
+### 
+GET http://localhost:3008/taskItems
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjMsInVzZXJuYW1lIjoiYXJ1bjEiLCJyb2xlIjoibWVtYmVyIiwiaWF0IjoxNzI0MDM3MDc4fQ.CPBHSeY96o8IQiOCDzK7BI2X4qtEEwCqOuh5gdstbhM

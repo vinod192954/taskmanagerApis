@@ -6,6 +6,7 @@ const jwt = require('jsonwebtoken')
 const {open} = require('sqlite')
 const sqlite3 = require('sqlite3')
 const { stat } = require('fs')
+const { request, get } = require('http')
 const app = express()
 app.use(cors())
 app.use(express.json())
@@ -103,4 +104,16 @@ app.post("/tasks",authenticationToken,async(request,response)=>{
     response.send({taskId:taskId})
 
 })
+
+app.get("/taskItems", authenticationToken, async (request, response) => {
+    try {
+        const user_Id=request.users.userId
+        const getTasksList = `SELECT * FROM tasks WHERE userId = ?`; 
+        const result = await db.all(getTasksList,[user_Id]);
+        response.send(result);
+    } catch (error) {
+        console.error("Error fetching tasks:", error);
+        response.status(500).send({ message: "Failed to retrieve tasks" });
+    }
+});
 
